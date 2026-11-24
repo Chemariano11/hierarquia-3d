@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Arquitetura hierárquica de sistemas em 3D: do componente ao suprassistema, numa estação de bombeamento.">
+<meta name="description" content="Arquitetura hierárquica de sistemas em 3D: do componente ao suprassistema, na estação de água de resfriamento de uma planta de papel.">
 <title>Hierarquia do sistema em 3D</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* VOICE: sala de aula de engenharia, claro e preciso, sem enfeite
-   IDEA: a câmera de um drone que decola de um rolamento e sobe até a cidade abastecida
+   IDEA: a câmera de um drone que decola de um rolamento e sobe até a planta de papel
    PICTURE: cena 3D da estação de bombeamento com fronteiras tracejadas de cada nível
    COLOUR and TYPE: azul-água dominante, branco, amarelo de segurança como acento; Barlow
    LAYOUT: palco 3D grande à esquerda, escada de níveis e ficha à direita; empilha no celular */
@@ -59,7 +59,7 @@ aside{border-left:1px solid var(--line);padding:18px 20px;display:flex;flex-dire
 <body>
 <header class="band">
 <h1>Do componente ao suprassistema</h1>
-<p>A arquitetura hierárquica de uma estação de bombeamento, vista como o voo de um drone: a câmera parte de um rolamento e sobe, nível a nível, até a cidade abastecida. A linha tracejada amarela marca a fronteira de cada item.</p>
+<p>A arquitetura hierárquica da estação de bombeamento de água de resfriamento, o fio condutor do curso, vista como o voo de um drone: a câmera parte de um rolamento e sobe, nível a nível, até a planta de papel. A linha tracejada amarela marca a fronteira de cada item.</p>
 </header>
 <main>
 <section class="stage" id="stage" tabindex="0" aria-label="Cena 3D: role para aproximar ou afastar, arraste para girar">
@@ -79,7 +79,7 @@ aside{border-left:1px solid var(--line);padding:18px 20px;display:flex;flex-dire
 </main>
 <section class="band notes">
 <div><h3>A regra do zoom</h3><p>Subir um nível é fechar a caixa: o item vira um bloco, e a falha dele passa a ser uma falta (causa) do nível de cima. Descer um nível é abrir a caixa e perguntar de que partes, e de que interfaces, aquela função depende.</p></div>
-<div><h3>Bottom-up e top-down</h3><p>O voo de subida mostra a composição: cada item é feito dos itens de baixo. O voo de descida (aperte o botão no alto da escada) mostra a decomposição, que é como a análise começa: da missão do suprassistema até o componente.</p></div>
+<div><h3>Bottom-up e top-down</h3><p>O voo de subida mostra a composição: cada item é feito dos itens de baixo. O voo de descida (o botão inverte quando o voo chega ao topo) mostra a decomposição, que é como a análise começa: da missão do suprassistema até o componente.</p></div>
 <div><h3>A fronteira define o item</h3><p>O mesmo rolamento é componente aqui e equipamento inteiro para o fabricante. O nível não é propriedade da peça; depende de onde se traça a fronteira e de qual serviço se analisa.</p></div>
 </section>
 <footer class="band foot"><p>Material relacionado: <a href="https://chemariano11.github.io/estacao-3d/">Modelo 3D da estação de bombeamento</a> · <a href="https://chemariano11.github.io/simulador-ram-rbd/">Simulador RAM-RBD</a>. Análise da Confiabilidade de Sistemas · Prof. Carlos Henrique Mariano.</p></footer>
@@ -89,36 +89,36 @@ aside{border-left:1px solid var(--line);padding:18px 20px;display:flex;flex-dire
 const LV=[
 {n:1,nome:'Componente',ex:'Rolamento',t:[-0.45,0.6,0],d:0.32,c:[-0.45,0.6,0],sz:[0.05,0.15,0.15],
 def:'Menor item considerado na análise. Não é decomposto: quando falha, é substituído.',
-item:'Rolamento de esferas do mancal da bomba, lado acoplado (LA): anéis, esferas e gaiola.',
+item:'Rolamento de esferas do mancal da bomba B1, lado acoplado (LA): anéis, esferas e gaiola.',
 rel:'Dados de vida e distribuição de Weibull; vida L10 (ISO 281); física da falha: fadiga de contato, contaminação, lubrificação deficiente.'},
 {n:2,nome:'Subconjunto',ex:'Mancal',t:[-0.575,0.6,0],d:0.95,c:[-0.575,0.6,0],sz:[0.5,0.27,0.27],
 def:'Grupo de componentes montados que ainda não cumpre sozinho uma função de uso; é reparado ou trocado como unidade.',
-item:'Mancal da bomba: rolamentos LA e LOA, caixa, vedações e lubrificante.',
+item:'Mancal da bomba B1: rolamentos LA e LOA, caixa, vedações e lubrificante.',
 rel:'Modos e mecanismos de falha (FMEA); interfaces de lubrificação e vedação; vibração e temperatura como sinais de falha potencial (intervalo P-F).'},
 {n:3,nome:'Conjunto',ex:'Motobomba',t:[-0.1,0.65,0],d:3.4,c:[-0.1,0.62,0],sz:[2.95,1.3,0.95],
 def:'Itens montados que cumprem uma função completa e podem ser retirados e substituídos como unidade.',
-item:'Motobomba: bomba (carcaça, rotor, eixo, selo mecânico, mancal), acoplamento, motor elétrico e base. Converte energia elétrica em energia hidráulica.',
+item:'Motobomba do trem 1: bomba B1 (carcaça, rotor, eixo, selo mecânico, mancal), acoplamento, motor M1 e base. Converte energia elétrica em energia hidráulica.',
 rel:'Árvore de falhas do conjunto; falhas de interface (desalinhamento no acoplamento); item reparável: MTBF e MTTR.'},
-{n:4,nome:'Subsistema',ex:'Bombeamento',t:[-0.8,1.3,0],d:12,c:[-0.7,1.4,0],sz:[3.6,2.9,9.6],
-def:'Parte do sistema definida por uma função (ou por uma tecnologia), com fronteira e serviço próprios.',
-item:'Bombeamento: motobombas em paralelo, válvulas de retenção e de bloqueio, coletores de sucção e de recalque. No mesmo nível: sucção, recalque, alimentação elétrica, comando e controle.',
-rel:'Diagrama de blocos com redundância (k-de-n); falha de causa comum; falha oculta da retenção e teste de prova.'},
-{n:5,nome:'Sistema',ex:'Estação de bombeamento',t:[-2,2,0],d:48,c:[-1,3.2,0],sz:[48,7,16],
+{n:4,nome:'Subsistema',ex:'Trem 1',t:[-0.6,1.3,-1.5],d:9,c:[-0.3,1.25,0],sz:[3.4,2.6,1.2],
+def:'Parte do sistema definida por uma função, com fronteira e serviço próprios; no diagrama de blocos, vira um bloco.',
+item:'Trem 1: motor M1, bomba B1 e válvula de retenção V1, em paralelo com o trem 2. No mesmo nível: filtragem (F), alimentação e comando (CCM), regulação (VR), medição e controle.',
+rel:'Os dois trens formam o paralelo do RBD; falha de causa comum; a retenção travada no trem parado é falha oculta até a demanda (teste de prova).'},
+{n:5,nome:'Sistema',ex:'Estação de bombeamento',t:[-1,1.5,-0.5],d:34,c:[-1,3.2,0],sz:[25,6.8,14.6],
 def:'Subsistemas integrados que entregam um serviço ao usuário, dentro de uma fronteira definida.',
-item:'Estação de bombeamento: sucção, bombeamento, recalque, alimentação elétrica (transformador e CCM), comando e controle.',
-rel:'Fronteira, interfaces de serviço e critério de falha; confiabilidade de missão e disponibilidade; RCM.'},
-{n:6,nome:'Suprassistema',ex:'Abastecimento de água',t:[220,0,0],d:1250,c:[280,40,-20],sz:[1440,100,820],
+item:'Estação de água de resfriamento: do flange de sucção ao flange de descarga no coletor; do barramento do CCM aos terminais dos motores. Interface de serviço: o coletor, onde se medem vazão e pressão.',
+rel:'A fronteira decide o que entra na estatística de falhas; RBD: F, (trem 1 ∥ trem 2), CCM e VR em série; R<sub>S</sub>(1 ano) = 0,9240.'},
+{n:6,nome:'Suprassistema',ex:'Planta de papel',t:[85,0,-5],d:390,c:[85,25,-10],sz:[360,50,230],
 def:'Sistema maior do qual o sistema em estudo é um elemento. É ele que define a missão e as consequências da falha.',
-item:'Sistema de abastecimento: rio, captação, ETA, estação de bombeamento, adutoras, reservatório elevado e cidade; e a rede elétrica que entra pela fronteira.',
-rel:'O critério de falha vem de fora (vazão e pressão exigidas); o reservatório amortece a parada da estação; a consequência é falta d’água na cidade.'}];
+item:'A planta: torre de resfriamento, máquina de papel com seus trocadores de calor (o processo que consome a água fria) e rede elétrica interna, alimentada pela concessionária.',
+rel:'O processo fixa o critério de falha da estação (vazão e pressão no coletor); a consequência é a perda de resfriamento na máquina de papel.'}];
 
 const TAGS=[
 [0,'Anel externo',[-0.45,0.675,0]],[0,'Esferas',[-0.45,0.6,0.05]],[0,'Anel interno',[-0.45,0.545,0.02]],[0,'Eixo',[-0.3,0.63,0]],
 [1,'Rolamento LA',[-0.45,0.6,0.075]],[1,'Rolamento LOA',[-0.7,0.6,0.075]],[1,'Caixa de mancal',[-0.575,0.71,0]],[1,'Vedação',[-0.36,0.68,0.06]],
-[2,'Bomba',[-0.95,0.98,0]],[2,'Mancal',[-0.575,0.74,0]],[2,'Acoplamento',[0.32,0.76,0]],[2,'Motor elétrico',[0.85,0.95,0]],[2,'Base',[0.2,0.22,0.4]],
-[3,'Motobomba A',[0.8,1.0,-3.5]],[3,'Motobomba B',[0.8,1.0,0]],[3,'Motobomba C',[0.8,1.0,3.5]],[3,'Retenção',[-0.95,1.68,3.5]],[3,'Bloqueio',[-0.95,2.12,3.5]],[3,'Coletor de recalque',[-0.95,2.85,-3]],[3,'Coletor de sucção',[-2.3,0.85,-3]],
-[4,'Sucção',[-19,5.6,0]],[4,'Bombeamento',[-0.6,3.4,0]],[4,'Recalque',[14,3.4,5]],[4,'Alimentação elétrica',[5,2.5,-6.5]],[4,'Comando e controle',[9,2.5,-6.5]],[4,'Transformador',[16,3,-4]],
-[5,'Rio',[-400,6,-330]],[5,'Captação',[-345,14,-60]],[5,'ETA',[-240,14,170]],[5,'Estação de bombeamento',[0,14,0]],[5,'Reservatório elevado',[480,70,-260]],[5,'Cidade',[750,55,0]],[5,'Rede elétrica',[40,40,-420]]];
+[2,'Bomba B1',[-0.95,0.98,0]],[2,'Mancal',[-0.575,0.74,0]],[2,'Acoplamento',[0.32,0.76,0]],[2,'Motor M1',[0.85,0.95,0]],[2,'Base',[0.2,0.22,0.4]],
+[3,'Motor M1',[0.85,1.0,0]],[3,'Bomba B1',[-0.95,1.0,0.3]],[3,'Retenção V1',[-0.95,1.72,0]],[3,'Trem 2 (em paralelo)',[0.85,1.0,-3.2]],[3,'Coletor de sucção',[-2.3,0.9,-1.6]],[3,'Junção dos trens',[-0.95,2.9,-1.6]],
+[4,'Filtragem (F)',[-6,1.9,-1.6]],[4,'Trem 1',[1.2,1.5,0]],[4,'Trem 2',[0.9,1.3,-3.2]],[4,'Alimentação e comando (CCM)',[5,2.5,-6.5]],[4,'Medição e controle',[9,2.5,-6.5]],[4,'Regulação (VR)',[3,2.4,2.4]],[4,'Coletor: interface de serviço',[7,3.3,2]],[4,'Flange de sucção',[-12.6,1.2,-1.6]],[4,'Rede interna (fora da fronteira)',[13,3.5,-5]],
+[5,'Torre de resfriamento',[-48,19,0]],[5,'Estação de bombeamento',[-1,11,0]],[5,'Máquina de papel (trocadores de calor)',[140,22,-30]],[5,'Rede elétrica interna',[30,18,-62]],[5,'Água fria',[38,4,2]],[5,'Água quente (retorno)',[75,3,22]],[5,'Rede da concessionária',[42,34,-160]]];
 
 const stage=document.getElementById('stage'),cv=document.getElementById('cv'),tagsEl=document.getElementById('tags');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -150,7 +150,6 @@ const pumpM=M(0x2f5f9e),motorM=M(0x2f7d55),dark=M(0x3b434d),concrete=M(0xd8d2c4,
 const housF=s=>s<1?lerp(.1,.42,sm(.3,1,s)):lerp(.42,1,sm(1.25,1.9,s));
 const voluteM=FM(0x2f5f9e,s=>lerp(.18,1,sm(.35,1.1,s)));const housM=FM(0x46658c,housF),guardM=FM(0xf2b01e,s=>lerp(.12,1,sm(1.3,2,s)));
 const frontM=FM(0xe3ddd0,s=>sm(4.35,4.85,s),{roughness:.9}),roofM=FM(0x7d8792,s=>sm(4.45,4.95,s));
-const netM=FM(0x4aa3df,s=>sm(4.3,4.9,s),{metalness:.2});
 
 const rot=new T.Group();rot.position.set(0,0.6,0);scene.add(rot);
 const balls=new T.Group();balls.position.set(0,0.6,0);scene.add(balls);
@@ -177,47 +176,58 @@ function motobomba(z,det){
   box(0.18,0.12,0.18,motorM,[0.8,0.87,0],g);box(0.6,0.28,0.42,motorM,[0.8,0.3,0],g);
   pipe([-0.95,0.9,0],[-0.95,2.6,0],0.075,pipeM,g);
   mesh(new T.CylinderGeometry(0.12,0.12,0.26,24),red,[-0.95,1.5,0],g);
-  box(0.2,0.24,0.2,dark,[-0.95,1.95,0],g);pipe([-0.95,1.95,0.1],[-0.95,1.95,0.32],0.012,steel,g);
-  mesh(new T.TorusGeometry(0.1,0.012,8,32),red,[-0.95,1.95,0.33],g);
   pipe([-1.35,0.6,0],[-2.3,0.6,0],0.09,pipeM,g);
 }
-motobomba(-3.5,false);motobomba(0,true);motobomba(3.5,false);
-pipe([-2.3,0.6,-3.75],[-2.3,0.6,3.75],0.14,pipeM);pipe([-2.3,0.6,0],[-15,0.6,0],0.14,pipeM);
-pipe([-0.95,2.6,-3.75],[-0.95,2.6,5],0.15,pipeM);pipe([-0.95,2.6,5],[14,2.6,5],0.15,pipeM);pipe([14,2.6,5],[14,-0.5,5],0.15,pipeM);
+motobomba(-3.2,false);motobomba(0,true);
+// coletor de sucção, filtro F e linha até a torre
+pipe([-2.3,0.6,-3.35],[-2.3,0.6,0.15],0.14,pipeM);pipe([-2.3,0.6,-1.6],[-5.55,0.6,-1.6],0.14,pipeM);
+const filM=M(0x5a6e86);
+mesh(new T.CylinderGeometry(0.45,0.45,1.1,32),filM,[-6,0.75,-1.6]);mesh(new T.CylinderGeometry(0.52,0.52,0.1,32),dark,[-6,1.35,-1.6]);
+for(let k=0;k<6;k++){const a=k/6*Math.PI*2;mesh(new T.CylinderGeometry(0.03,0.03,0.12,8),steel,[-6+0.47*Math.cos(a),1.42,-1.6+0.47*Math.sin(a)])}
+pipe([-6.45,0.6,-1.6],[-35,0.6,-1.6],0.14,pipeM);
+const fl=mesh(new T.CylinderGeometry(0.26,0.26,0.06,24),dark,[-12.8,0.6,-1.6]);fl.rotation.z=Math.PI/2;
+// junção dos trens, VR, medição e flange de descarga
+pipe([-0.95,2.6,-3.35],[-0.95,2.6,2.15],0.15,pipeM);pipe([-0.95,2.6,2],[30,2.6,2],0.15,pipeM);
+mesh(new T.SphereGeometry(0.26,24,16),M(0x5d6670),[3,2.6,2]);pipe([3,2.85,2],[3,3.2,2],0.03,steel);
+const act=mesh(new T.SphereGeometry(0.32,24,12,0,Math.PI*2,0,Math.PI/2),M(0xf2b01e),[3,3.2,2]);
+const fm=mesh(new T.CylinderGeometry(0.21,0.21,0.5,24),M(0x2f5f9e),[6,2.6,2]);fm.rotation.z=Math.PI/2;box(0.22,0.18,0.12,dark,[6,2.92,2]);
+pipe([7.2,2.75,2],[7.2,3.0,2],0.02,steel);box(0.14,0.18,0.14,M(0xe6dcc0),[7.2,3.08,2]);
+const fd=mesh(new T.CylinderGeometry(0.27,0.27,0.06,24),dark,[10.8,2.6,2]);fd.rotation.z=Math.PI/2;
 // prédio
 box(24,0.3,14,concrete,[-1,-0.15,0]);box(0.3,6,14,concrete,[-13,3,0]);box(24,6,0.3,concrete,[-1,3,-7]);
 box(0.3,6,14,frontM,[11,3,0]);box(24,6,0.3,frontM,[-1,3,7]);box(24.6,0.3,14.6,roofM,[-1,6.15,0]);
 for(let k=0;k<5;k++){const x=3+k*0.95;box(0.9,2.1,0.6,M(0xc4ccd4),[x,1.05,-6.5]);mesh(new T.SphereGeometry(0.03,8,8),M(k%3?0x3ccf6e:0xe2483d,{emissive:k%3?0x1a6e35:0x7a1d17}),[x,1.7,-6.18])}
 box(1.2,2.1,0.6,M(0xe6dcc0),[9,1.05,-6.5]);box(0.8,0.5,0.02,M(0x1d2a38,{emissive:0x0b3d6e}),[9,1.45,-6.19]);
-pipe([4.9,2.2,-6.5],[4.9,3.4,-6.5],0.04,dark);box(0.4,0.06,10,dark,[4.9,3.4,-1.5]);
-mesh(new T.CylinderGeometry(4,4,5,40),concrete,[-19,2.5,0]);
+pipe([4.9,2.2,-6.5],[4.9,3.4,-6.5],0.04,dark);box(0.4,0.06,7,dark,[4.9,3.4,-3]);
 box(4,0.3,3,concrete,[16,0.15,-4]);box(2.4,2.2,1.6,M(0x7c8f7a),[16,1.4,-4]);
 for(let k=0;k<6;k++)box(0.08,1.6,1.9,M(0x6c7f6a),[14.9+k*0.44,1.3,-4]);
 for(let k=0;k<3;k++)mesh(new T.CylinderGeometry(0.06,0.09,0.6,10),M(0xa7623f),[15.4+k*0.6,2.8,-4]);
-// suprassistema
+pipe([15.4,3.1,-4],[11.2,3.4,-5],0.05,dark);
+// suprassistema: a planta de papel
 const ground=mesh(new T.PlaneGeometry(9000,9000),M(0x7f9a5e,{roughness:1}),[0,-0.3,0]);ground.rotation.x=-Math.PI/2;
-const pav=mesh(new T.PlaneGeometry(70,40),M(0xbdb8ad,{roughness:1}),[-1,-0.25,0]);pav.rotation.x=-Math.PI/2;
-const riv=mesh(new T.PlaneGeometry(80,5000),M(0x3d7fb5,{roughness:.3}),[-400,-0.1,0]);riv.rotation.x=-Math.PI/2;
-box(14,8,10,concrete,[-345,4,-60]);pipe([-352,2,-60],[-385,2,-60],1.5,pipeM);
-box(50,6,24,M(0xb9c4cc),[-270,3,150]);box(46,0.4,20,M(0x5f9bc9),[-270,6.1,150]);box(30,5,14,M(0xb9c4cc),[-225,2.5,190]);
-mesh(new T.CylinderGeometry(14,14,10,40),concrete,[-190,5,140]);box(16,7,12,M(0xe6dcc0),[-300,3.5,195]);
-const hill=mesh(new T.ConeGeometry(120,30,48),M(0x74905a,{roughness:1}),[480,15,-260]);
-for(const[a,b]of[[-1,-1],[1,-1],[-1,1],[1,1]])pipe([480+a*6,30,-260+b*6],[480+a*5,50,-260+b*5],0.6,dark);
-mesh(new T.CylinderGeometry(10,10,12,32),M(0xe8e4da),[480,56,-260]);
-pipe([-340,1.5,-50],[-262,1.5,135],2,netM);pipe([-190,1.5,140],[-28,1.5,4],2,netM);
-pipe([24,1.5,5],[430,18,-235],2,netM);pipe([500,18,-240],[600,1.5,-110],2,netM);
+const pav=mesh(new T.PlaneGeometry(360,230),M(0xb3afa5,{roughness:1}),[85,-0.25,-10]);pav.rotation.x=-Math.PI/2;
+box(28,1.5,16,concrete,[-48,0.75,0]);box(26,12,13,M(0x9fb0a8),[-48,7.5,0]);
+for(const x of[-54,-42]){mesh(new T.CylinderGeometry(3.6,3.9,3.2,32),M(0x8a9ba3),[x,15.1,0]);mesh(new T.CylinderGeometry(3.3,3.3,0.2,24),dark,[x,16.6,0])}
+for(let k=0;k<10;k++)box(0.4,10,13.2,M(0x7d8f88),[-60.5+k*2.7,7,0]);
+box(160,18,26,M(0xe3ddd0,{roughness:.9}),[140,9,-30]);box(70,6,20,M(0xb9c2c8),[150,21,-30]);box(160,0.6,27,M(0x8c96a0),[140,18.3,-30]);
+box(20,14,16,M(0xd2c8b6),[60,7,-85]);mesh(new T.CylinderGeometry(2,2.6,42,20),M(0xb7aea0),[72,21,-85]);
+box(60,12,30,M(0xcfd6db),[150,6,45]);box(40,8,24,M(0xd8d0c0),[-10,4,-75]);
+box(26,0.4,20,M(0x9a9a94),[30,0,-62]);for(let k=0;k<3;k++)box(3,4,2.4,M(0x7c8f7a),[22+k*8,2,-62]);
+const coldM=FM(0x3d8fd6,s=>sm(4.3,4.9,s),{metalness:.2}),hotM=FM(0xd9653b,s=>sm(4.3,4.9,s),{metalness:.2});
+pipe([20,1.5,2],[60,1.5,2],1.2,coldM);pipe([60,1.5,2],[60,1.5,-17],1.2,coldM);
+pipe([75,1.5,-17],[75,1.5,22],1.2,hotM);pipe([75,1.5,22],[-48,1.5,22],1.2,hotM);pipe([-48,1.5,22],[-48,14,7],1.2,hotM);
 let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
-const cityC=[0xe8e2d6,0xd2d8de,0xc9b8a6,0xf0ece4,0xb7c2cc];
-for(let i=0;i<9;i++)for(let j=0;j<9;j++){if(rnd()<.15)continue;const w=16+rnd()*10,h=6+rnd()*rnd()*45;box(w,h,w,M(cityC[(i+j)%5],{roughness:.9}),[600+i*38,h/2,-150+j*38])}
 const treeM=M(0x4f7a3f,{roughness:1});
-for(let k=0;k<220;k++){const x=-650+rnd()*1750,z=-700+rnd()*1400;
-  if(Math.abs(x)<70&&Math.abs(z)<45||x>570&&x<940&&z>-180&&z<190||Math.abs(x+400)<55||x>-320&&x<-170&&z>120&&z<220)continue;
+for(let k=0;k<260;k++){const x=-400+rnd()*900,z=-450+rnd()*800;
+  if(x>-100&&x<270&&z>-130&&z<110)continue;
   mesh(new T.ConeGeometry(4,13,7),treeM,[x,6.3,z])}
 const lineM=new T.LineBasicMaterial({color:0x34404c});
-const twr=[[40,-60]];for(let z=-220;z>-1700;z-=160)twr.push([40,z]);
+const twr=[[42,-75]];for(let z=-160;z>-900;z-=140)twr.push([42,z]);
 for(const[x,z]of twr){pipe([x-3,0,z],[x,30,z],0.5,dark);pipe([x+3,0,z],[x,30,z],0.5,dark);pipe([x-6,28,z],[x+6,28,z],0.4,dark)}
-const pts=[new T.Vector3(16,3,-4)];for(const[x,z]of twr)pts.push(new T.Vector3(x,28,z));
+const pts=[new T.Vector3(30,4,-62)];for(const[x,z]of twr)pts.push(new T.Vector3(x,28,z));
 scene.add(new T.Line(new T.BufferGeometry().setFromPoints(pts),lineM));
+const pts2=[new T.Vector3(22,4,-62),new T.Vector3(16,3,-4)];
+scene.add(new T.Line(new T.BufferGeometry().setFromPoints(pts2),lineM));
 
 // fronteiras
 const BOX=LV.map(L=>{const g=new T.EdgesGeometry(new T.BoxGeometry(...L.sz));const s=Math.max(...L.sz);
